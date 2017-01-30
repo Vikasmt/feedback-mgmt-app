@@ -1,7 +1,7 @@
 {
-  "name": "Phone Change",
-  "description": "Heroku Connect Sample App - Phone Change",
-  "repository": "https://github.com/jamesward/heroku-connect-phone-change",
+  "name": "Feedback management",
+  "description": "Heroku Connect FMA App - Feedback management",
+  "repository": "https://github.com/Vikasmt/feedback-mgmt-app",
   "success_url": "/setup.html",
   "env": {
     "PGSSLMODE": {
