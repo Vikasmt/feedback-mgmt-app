@@ -1,7 +1,7 @@
 {
-  "name": "phone-change",
+  "name": "feedback-mgmt",
   "version": "0.0.0",
-  "description": "Heroku Connect Sample App - Phone Change",
+  "description": "Heroku Connect FMA App - Feedback management",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
