@@ -25,7 +25,7 @@ app.set('port', process.env.PORT || 5000);
 
 var router = express.Router();  
 
-var baseUrl='https://feedback-mgmt-app.herokuapp.com/';
+var baseUrl='https://phone-change-con.herokuapp.com/';
 
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
@@ -257,8 +257,8 @@ router.get('/ValidateAdmin', function(req, res) {
                                   return res.json({
                                            userid:result.rows[0].sfid,
                                            firstname:result.rows[0].firstname,
-                                           lastname:result.rows[0].lastname,
-                                           username:result.rows[0].username,
+					   lastname:result.rows[0].lastname,
+					   username:result.rows[0].email,
 					   uhrkid:result.rows[0].id,
                                            msgid: 1,
                                            message: 'Success.'});
@@ -457,7 +457,7 @@ router.get('/getProducts', function(req, res) {
     pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
         if (err) console.log(err);
         conn.query(
-            'SELECT sfid, Name,Product_Description__c, Product_Type__c, Serial_Batch_code__c,Type__c,BrandingColor__c FROM salesforce.FMA_Product__c WHERE Type__c=\''+type+'\'',
+            'SELECT sfid, Name,Product_Description__c, Product_Type__c, Serial_Batch_code__c,Type__c, Product_Germany_Description__c, Product_Italy_Description__c, BrandingColor__c FROM salesforce.FMA_Product__c WHERE Type__c=\''+type+'\'',
             function(err,result){
                 done();
                 if(err){
