@@ -268,7 +268,49 @@ router.get('/ValidateAdmin', function(req, res) {
              });
      });
 });
-
+router.get('/herokuadminlogin', function(req, res) {
+    var emailaddress = req.headers.email;
+    var password = req.headers.password;
+     pg.connect(process.env.DATABASE_URL, function (err, conn, done){
+          if (err) console.log(err);
+         conn.query(
+             'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone from HerokuUserManagement um where um.email=\''+emailaddress+'\'',
+             function(err,result){
+              if (err != null || result.rowCount == 0) {
+                   return  res.json({
+                            userid: -1,
+                            firstname:'',
+                            lastname:'',
+                            username:'',
+			    uhrkid:'',
+                            msgid: 2,
+                            message: 'Invalid email.'});
+                }
+                 else{
+                       conn.query(
+                            'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone from HerokuUserManagement um where um.email=\''+emailaddress+'\' and um.password=\''+password+'\'',
+                           function(err,result){
+                               done();
+                               if(err != null || result.rowCount == 0){
+                                   return  res.json({
+                                           userid: -1,
+                                           firstname:'',
+                                           lastname:'',
+                                           username:'',
+					   uhrkid:'',
+                                           msgid: 3,
+                                           message: 'Invalid password.'});
+                               }
+                               else{
+                                  return res.json({
+                                           msgid: 1,
+                                           message: 'Success.'});
+                               }
+                            });
+                 }
+             });
+     });
+});
 router.post('/insertCase', function(req, res) {
     pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
         if (err) console.log(err);
