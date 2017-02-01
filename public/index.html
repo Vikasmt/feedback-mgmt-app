@@ -83,62 +83,66 @@
     color: #fff;
     font-size: 5em;
 }
- .panel{
-   cursor:pointer;
-  }
+  .error {
+      color: red;
+      font-size: 0.75em;
+    }
     </style>
 
 
     
 </head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <script src="scripts/constants/myapp.constant.js"></script>
-    <script src="scripts/ngLoader.js"></script>
-    <script src="scripts/mainapp.js"></script>
-    <script src="scripts/appHttpInterceptor.js"></script>
-    <script src="scripts/controllers/createuser.js"></script>
-    <script src="scripts/controllers/userlist.js"></script>
-<body>
-  <div style="width: 100%;    background: #8460aa;">
-     
-    <img src="https://www.merck-cap.com/resource/1478119071000/Images/images/layer_15.png" style="width: 77px;height: 42px;margin: 10px 14px;" />
-    <a href="https://feedback-mgmt-app.herokuapp.com" class="material-icons" style="color: #fafafa;font-size: 1.9em;padding: 0.1em 0em 0 0.5em;line-height: 1em;vertical-align: middle;">home</a>
-    </div>
+<script src="scripts/controllers/createuser.js"></script>
 
-<div ng-app="mainApp" ng-controller="mainCtrl" ng-init="load()">
-<!--index page-->
-<div ng-hide="isclicked===true">
-  
-    <div class="row state-overview" style="width: 60%;margin: 65px auto;">
-            <div class="col-md-6" style="">
-                <section class="panel" on ng-click="navigatecreateuser()">
-                    <div class="symbol yellow" style="float: left;">
-                        <i class="material-icons">person_add</i>
-                    </div>
-                    <div class="value" style="float: left;background: #fff;/* width: 145px; */height: 145px;width: 60%;padding: 2em 2em;">
-                        <a ng-click="navigatecreateuser()"> <p style="padding: 1em 0;font-size: 1.2em;">Create Users</p></a>
-                    </div>
-                </section>
-                </div>
-                    <div class=" col-md-6">
-                        <section class="panel" onclick="" ng-click="navigateuserslist()">
-                            <div class="symbol purple" style="float: left;">
-                                <i class="material-icons">group</i>
-                            </div>
-                    <div class="value" style="float: left;background: #fff;/* width: 145px; */height: 145px;width: 60%;padding: 2em 2em;">                              
-                        <a ng-click="navigateuserslist()"> <p style=" padding: 1em 0;font-size: 1.2em;color: rgba(0, 0, 0, 0.87);">List Of Users</p></a>
-                    </div>
-                        </section>
-                    </div>
-    </div>
-</div>
     
-    <div ui-view></div>
-</div>
+<body>
+
+
+<!--index page-->
+  <ng-form name="myForm" ng-controller="createCtrl" ng-init="bindParameters()">
+    <div id="createuserForm" class="container" style="width: 450px">
+       <div class="form-horizontal">
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                
+                    <h3 class="panel-title"><i class="material-icons">&#xE853</i><span>{{mode==='E' ? 'Update User' : 'User Login'}}</span></h3>
+                </div>
+                <div class="panel-body">
+                    
+                   
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <!--<input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Enter email address" name="email" required ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">-->
+                         <input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Enter email address" required>
+                        <span class="error"  ng-show="myForm.email.$error.pattern">Invalid email address.</span>
+                    </div>
+                    <div class="form-group" ng-hide="mode==='E'">
+                        <label for="password">Password</label>
+                        <!--<input type="text" class="form-control" id="password" name="userPassword" ng-model="user.password" placeholder="Enter password" required ng-pattern = "/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">-->
+                        <input type="tel" class="form-control" id="password" ng-model="user.password" placeholder="Enter password" required>
+                                <span class="error" ng-show="myForm.userPassword.$error.pattern">please enter 8 letter and one capital and one numaric with special symbol</span>
+                            
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div id="message" class="alert alert-info" role="alert" style="display: none;">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span id="messageMessage"></span>
+                    </div>
+                    <div id="error" class="alert alert-danger" role="alert" style="display: none;">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <span id="errorMessage"></span>
+                    </div>
+                    <div class="btn-div">
+                    <button class="btn btn-raised btn-success btn-primary ctuser" ng-click="createUser(user)">{{mode==='E' ? 'Update User' : 'User Login'}}</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+      </ng-form>
+
 </body>
 </html>
