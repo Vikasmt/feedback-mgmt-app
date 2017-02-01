@@ -113,7 +113,48 @@
 <div ng-app="mainApp" ng-controller="mainCtrl" ng-init="load()">
 <!--index page-->
 <div ng-hide="isclicked===true">
-  
+  <ng-form name="myForm" ng-controller="createCtrl" ng-init="bindParameters()">
+    <div id="createuserForm" class="container" style="width: 450px">
+       <div class="form-horizontal">
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                
+                    <h3 class="panel-title"><i class="material-icons">&#xE853</i><span>{{mode==='E' ? 'Update User' : 'Create User'}}</span></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <!--<input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Enter email address" name="email" required ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">-->
+                         <input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Enter email address" required>
+                        <span class="error"  ng-show="myForm.email.$error.pattern">Invalid email address.</span>
+                    </div>
+                    
+                    <div class="form-group" ng-hide="mode==='E'">
+                        <label for="password">Password</label>
+                        <!--<input type="text" class="form-control" id="password" name="userPassword" ng-model="user.password" placeholder="Enter password" required ng-pattern = "/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">-->
+                        <input type="tel" class="form-control" id="password" ng-model="user.password" placeholder="Enter password" required>
+                                <span class="error" ng-show="myForm.userPassword.$error.pattern">please enter 8 letter and one capital and one numaric with special symbol</span>
+                            
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div id="message" class="alert alert-info" role="alert" style="display: none;">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span id="messageMessage"></span>
+                    </div>
+                    <div id="error" class="alert alert-danger" role="alert" style="display: none;">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <span id="errorMessage"></span>
+                    </div>
+                    <div class="btn-div">
+                    <button class="btn btn-raised btn-success btn-primary ctuser" ng-click="createUser(user)">{{mode==='E' ? 'Update User' : 'Create User'}}</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+      </ng-form>
     
 </div>
     
