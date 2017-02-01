@@ -3,7 +3,7 @@ var app = angular.module("mainApp");
       
 
 
-app.controller("createCtrl", function($scope, $http, $state, $stateParams, apiUrl) {
+app.controller("loginCtrl", function($scope, $http, $state, $stateParams, apiUrl) {
   
         $scope.user={};
  
@@ -15,7 +15,7 @@ app.controller("createCtrl", function($scope, $http, $state, $stateParams, apiUr
             console.log($scope.mode);
         }
     
-        $scope.createUser = function(userInformation) {
+        $scope.herokuadminlogin = function(userInformation) {
                 
             if(angular.isDefined(userInformation) && userInformation !== null) {
                 var config = {
@@ -24,13 +24,13 @@ app.controller("createCtrl", function($scope, $http, $state, $stateParams, apiUr
                         }
                 }
                 
-                var createuserurl = apiUrl + ($scope.mode==='E' ? 'updateUserInfo' : 'CreateUser');
-                console.log(createuserurl);
+                var loginurl = apiUrl + 'herokuadminlogin';
+                console.log(loginurl);
                 
-                $http.post(createuserurl,userInformation,config)
+                $http.post(loginurl,userInformation,config)
                     .then(function (data, status, headers, config) {
                         $scope.user={};
-                        $state.go('userlist');
+                        $state.go('home');
                     })
                     .catch(function (data, status, header, config) {
                         console.log(data);
