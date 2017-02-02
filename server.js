@@ -268,7 +268,7 @@ router.get('/ValidateAdmin', function(req, res) {
              });
      });
 });
-router.get('/herokuadminlogin', function(req, res) {
+router.post('/herokuadminlogin', function(req, res) {
     var emailaddress = req.headers.email;
     var password = req.headers.password;
      pg.connect(process.env.DATABASE_URL, function (err, conn, done){
