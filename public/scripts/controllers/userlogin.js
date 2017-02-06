@@ -27,7 +27,7 @@ app.controller("loginCtrl", function($scope, $http, $state, $stateParams, apiUrl
                 var loginurl = apiUrl + 'herokuadminlogin';
                 console.log(loginurl);
                 
-                $http.get(loginurl,userInformation,config)
+                $http.post(loginurl,userInformation,config)
                     .then(function (data, status, headers, config) {
                         $scope.user={};
                         $state.go('home');
