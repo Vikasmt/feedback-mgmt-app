@@ -275,7 +275,7 @@ router.get('/herokuadminlogin', function(req, res) {
      pg.connect(process.env.DATABASE_URL, function (err, conn, done){
           if (err) console.log(err);
          conn.query(
-             'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone from HerokuUserManagement um where um.email=\''+emailaddress+'\'',
+             'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone, um.password from HerokuUserManagement um where um.email=\''+emailaddress+'\'',
              function(err,result){
               if (err != null || result.rowCount == 0) {
                    return  res.json({
@@ -289,7 +289,7 @@ router.get('/herokuadminlogin', function(req, res) {
                 }
                  else{
                        conn.query(
-                            'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone from HerokuUserManagement um where um.email=\''+emailaddress+'\' and um.password=\''+password+'\'',
+                            'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone, um.password from HerokuUserManagement um where um.email=\''+emailaddress+'\' and um.password=\''+password+'\'',
                            function(err,result){
                                done();
                                if(err != null || result.rowCount == 0){
