@@ -268,7 +268,7 @@ router.get('/ValidateAdmin', function(req, res) {
              });
      });
 });
-router.get('/herokuadminlogin', function(req, res) {
+router.post('/herokuadminlogin', function(req, res) {
     console.log(req.body);
     var emailaddress = req.body.email;
     var password = req.body.password;
@@ -283,7 +283,6 @@ router.get('/herokuadminlogin', function(req, res) {
                             firstname:'',
                             lastname:'',
                             username:'',
-			    uhrkid:'',
                             msgid: 2,
                             message: 'Invalid email.'});
                 }
@@ -298,7 +297,6 @@ router.get('/herokuadminlogin', function(req, res) {
                                            firstname:'',
                                            lastname:'',
                                            username:'',
-					   uhrkid:'',
                                            msgid: 3,
                                            message: 'Invalid password.'});
                                }
