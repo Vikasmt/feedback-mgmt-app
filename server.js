@@ -268,7 +268,7 @@ router.get('/ValidateAdmin', function(req, res) {
              });
      });
 });
-router.post('/herokuadminlogin', function(req, res) {
+router.get('/herokuadminlogin', function(req, res) {
     console.log(req.body);
     var emailaddress = req.body.email;
     var password = req.body.password;
