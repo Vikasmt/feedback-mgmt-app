@@ -269,8 +269,9 @@ router.get('/ValidateAdmin', function(req, res) {
      });
 });
 router.get('/herokuadminlogin', function(req, res) {
-    var emailaddress = req.headers.email;
-    var password = req.headers.password;
+    console.log(req.body);
+    var emailaddress = req.body.email;
+    var password = req.body.password;
      pg.connect(process.env.DATABASE_URL, function (err, conn, done){
           if (err) console.log(err);
          conn.query(
