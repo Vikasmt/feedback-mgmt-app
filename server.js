@@ -48,6 +48,23 @@ router.get('/getContacts', function(req, res) {
     });
 });
 
+router.get('/CreateUsers', function(req, res) {
+    pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
+        if (err) console.log(err);
+        conn.query(
+            'INSERT INTO UserManagement (firstname, lastname, email, phone) VALUES (\''+jsonData.firstname+'\', \''+jsonData.lastname+'\', \''+jsonData.email+'\', \''+jsonData.phone+'\'',
+            function(err,result){
+                done();
+                if(err){
+                    return res.status(400).json({error: err.message});
+                }
+                else{
+                    return res.json(result.rows);
+                }
+            });
+    });
+});
+
 router.post('/productImageSync', function(req, res) {
     var contentType = req.headers['content-type'];
     var mime = contentType.split(';')[0];
@@ -571,35 +588,7 @@ router.post('/CreateUser', function(req, res) {
      });
 });
 
-router.post('/CreateUsers', function(req, res) {
-    console.log(req.body);
-    var jsonData = req.body;
 
-    pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
-         if (err) console.log(err);
-
-                                    var formattedData='INSERT INTO UserManagement (firstname, lastname, email, phone, password, contactid) VALUES (\''+jsonData.firstname+'\', \''+jsonData.lastname+'\', \''+jsonData.email+'\', \''+jsonData.phone+'\', \''+jsonData.password+'\', \''+contactid+'\')';
-                                    console.log('formatted UserManagement Query:'+formattedData);
-
-                                    conn.query('INSERT INTO UserManagement (firstname, lastname, email, phone, password, contactid, active) VALUES (\''+jsonData.firstname+'\', \''+jsonData.lastname+'\', \''+jsonData.email+'\', \''+jsonData.phone+'\', \''+jsonData.password+'\', \''+contactid+'\',true)',
-                                     function(err, result) {
-                                        done();
-                                         if(err){
-                                                return res.json({
-                                                        msgid: 2,
-                                                        message: err.message});
-                                            }
-                                            else{
-                                                var subject = 'Welcome To Feedback Application';
-                                                var text = 'Greetings!!!\n\n Welcome '+jsonData.firstname+',\n\nPlease use below credentials to login portal.\n\E-Mail: '+jsonData.email+'\nPassword: '+jsonData.password+'\n\nThanks';
-                                                var resultStr = sendEmail(jsonData.email, subject, text);
-                                                return res.json({
-                                                        msgid: 1,
-                                                        message: 'Success.'});
-                                            }
-                                    });
-                                }
-                    });
 
 
 
