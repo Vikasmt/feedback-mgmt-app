@@ -48,7 +48,7 @@ router.get('/getContacts', function(req, res) {
     });
 });
 
-router.get('/CreateUsers', function(req, res) {
+router.post('/CreateUsers', function(req, res) {
     pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
         if (err) console.log(err);
         conn.query(
