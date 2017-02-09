@@ -49,6 +49,12 @@ router.get('/getContacts', function(req, res) {
 });
 
 router.post('/CreateUsers', function(req, res) {
+    console.log(req.body);
+    var jsonData = req.body;
+	
+    var formattedData='INSERT INTO UserManagement (firstname, lastname, email, phone) VALUES (\''+jsonData.firstname+'\', \''+jsonData.lastname+'\', \''+jsonData.email+'\', \''+jsonData.phone+'\'';
+    console.log('formatted UserManagement Query:'+formattedData);	
+	
     pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
         if (err) console.log(err);
         conn.query(
