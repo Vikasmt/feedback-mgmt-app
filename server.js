@@ -552,10 +552,10 @@ router.post('/CreateUser', function(req, res) {
              'SELECT count(*) from UserManagement where trim(email)=\''+jsonData.email+'\'',
              function(err, result){
                 done();
-                if(result.rows[0].count > 0){
-                    res.status(400).json({error: 'Email already exist.'});
-                }
-                 else{
+                //if(result.rows[0].count > 0){
+                  //  res.status(400).json({error: 'Email already exist.'});
+                //}
+                 
                     conn.query('INSERT INTO Salesforce.Contact (firstname, lastname, email, phone) VALUES (\''+jsonData.firstname+'\', \''+jsonData.lastname+'\', \''+jsonData.email+'\', \''+jsonData.phone+'\')  RETURNING id',
                          function(err, result) {
                             if(err){
@@ -589,7 +589,7 @@ router.post('/CreateUser', function(req, res) {
                                     });
                                 }
                     });
-                 }
+                 
              });
      });
 });
