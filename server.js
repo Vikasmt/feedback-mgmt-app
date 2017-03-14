@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-router.post('/authHandler', function(req, res) {
+router.get('/authHandler', function(req, res) {
     var emailaddress = req.headers.email;
     var password = req.headers.password;
      pg.connect(process.env.DATABASE_URL, function (err, conn, done){
