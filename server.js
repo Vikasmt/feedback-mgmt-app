@@ -31,7 +31,74 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-
+router.post('/authHandler', function(req, res) {
+    var emailaddress = req.headers.email;
+    var password = req.headers.password;
+     pg.connect(process.env.DATABASE_URL, function (err, conn, done){
+          if (err) console.log(err);
+         conn.query(
+             'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone, sc.sfid from UserManagement um, Salesforce.Contact sc where um.email=\''+emailaddress+'\'',
+             function(err,result){
+              if (err != null || result.rowCount == 0) {
+                   return  res.json({
+                            userid: -1,
+                            firstname:'',
+                            lastname:'',
+                            username:'',
+			    uhrkid:'',
+                            msgid: 2,
+                            message: 'Invalid email.'});
+                }
+                 else{
+                       conn.query(
+                            'SELECT um.id, um.firstname, um.lastname, um.username, um.email, um.phone, um.active, sc.sfid from UserManagement um, Salesforce.Contact sc where um.email=\''+emailaddress+'\' and um.password=\''+password+'\' and um.contactid=sc.id',
+                           function(err,result){
+                               done();
+                               if(err != null || result.rowCount == 0){
+                                   return  res.json({
+                                           userid: -1,
+                                           firstname:'',
+                                           lastname:'',
+                                           username:'',
+					   uhrkid:'',
+                                           msgid: 3,
+                                           message: 'Invalid password.'});
+                               }
+                               else if(result.rows[0].active == false){
+                                  return  res.json({
+                                           userid: -1,
+                                           firstname:'',
+                                           lastname:'',
+                                           username:'',
+					   uhrkid:'',
+                                           msgid: 4,
+                                           message: 'User is inactive.'}); 
+                               }
+                               else if(result.rows[0].sfid == null || result.rows[0].sfid.length == 0){
+                                  return  res.json({
+                                           userid: -1,
+                                           firstname:'',
+                                           lastname:'',
+                                           username:'',
+					   uhrkid:'',
+                                           msgid: 4,
+                                           message: 'User is not synced. Please wait...'}); 
+                               }
+                               else{
+                                  return res.json({
+                                           userid:result.rows[0].sfid,
+                                           firstname:result.rows[0].firstname,
+					   lastname:result.rows[0].lastname,
+					   username:result.rows[0].email,
+					   uhrkid:result.rows[0].id,
+                                           msgid: 1,
+                                           message: 'Success.'});
+                               }
+                            });
+                 }
+             });
+     });
+});
 
 
 
