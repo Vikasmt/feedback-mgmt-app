@@ -32,7 +32,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/authHandler', function(req, res) {
-  if (req.method === 'POST') {
     pg.connect(process.env.DATABASE_URL, function (err, conn, done){
           if (err) console.log(err);
          conn.query(
@@ -107,9 +106,7 @@ router.post('/authHandler', function(req, res) {
                  }
              });
      });
-  } else {
-    return authFail(res);
-  }
+  
 }
 
 
