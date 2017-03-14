@@ -32,6 +32,8 @@ router.get('/', function(req, res) {
 });
 
 router.post('/authHandler', function(req, res) {
+	var emailaddress = req.headers.email;
+    var password = req.headers.password;
     pg.connect(process.env.DATABASE_URL, function (err, conn, done){
           if (err) console.log(err);
          conn.query(
