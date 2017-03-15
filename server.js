@@ -11,7 +11,33 @@ var emailsecure = true;
 var emailuser = 'fmanotify@gmail.com';
 var emailpassword = 'mttl@123';
 /************************END*******************************/
- 
+var username = "user";
+var password = "password";
+var auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+var request = require('request');
+    
+function helloRoute() {
+  var hello = new express.Router();
+  hello.use(cors());
+  hello.use(bodyParser());
+  
+   //GET REST endpoint
+  hello.get('/',function(req, res) {
+    console.log(new Date(), 'In hello route GET / req.query=',req.query);
+    var url = 'https://feedback-mgmt-app.herokuapp.com';
+    
+    console.log(new Date(), 'calling Data Virtualization', url);
+    
+    request.get( {
+        url : url,
+        headers : {
+            "Authorization" : auth
+        }
+      }, function(error, response, body) { res.json({msg: body }); console.log(body);
+      
+      } );
+  } );
+	
 //var helmet = require('helmet');
 var app = express();
 //app.use(helmet()); 
