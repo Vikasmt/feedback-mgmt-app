@@ -11,13 +11,6 @@ var emailsecure = true;
 var emailuser = 'fmanotify@gmail.com';
 var emailpassword = 'mttl@123';
 /************************END*******************************/
-var usernameauth = "user";
-var passwordauth = "password";
-var auth = "Basic " + new Buffer(usernameauth + ":" + passwordauth).toString("base64");
-var request = require('request');
-
-
-    
 
 	
 //var helmet = require('helmet');
