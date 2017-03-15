@@ -11,10 +11,10 @@ var emailsecure = true;
 var emailuser = 'fmanotify@gmail.com';
 var emailpassword = 'mttl@123';
 /************************END*******************************/
-
-
+ 
+var helmet = require('helmet');
 var app = express();
-
+app.use(helmet()); 
 app.use(express.static('public'));
 
 app.use(bodyParser.json({limit: "50mb"}));
