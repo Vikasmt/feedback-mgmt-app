@@ -11,9 +11,9 @@ var emailsecure = true;
 var emailuser = 'fmanotify@gmail.com';
 var emailpassword = 'mttl@123';
 /************************END*******************************/
-var username1 = "user";
-var password1 = "password";
-var auth = "Basic " + new Buffer(username1 + ":" + password1).toString("base64");
+var usernameauth = "user";
+var passwordauth = "password";
+var auth = "Basic " + new Buffer(usernameauth + ":" + passwordauth).toString("base64");
 var request = require('request');
 
 function helloRoute() {
